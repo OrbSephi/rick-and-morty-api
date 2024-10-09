@@ -73,5 +73,6 @@ dependencies {
 
     //Koin
     implementation("io.insert-koin:koin-android:$koinVersion")
+    implementation(project(":features:locations"))
 
 }
