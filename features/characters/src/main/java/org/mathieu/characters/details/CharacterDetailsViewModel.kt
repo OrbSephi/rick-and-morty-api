@@ -2,16 +2,14 @@ package org.mathieu.characters.details
 
 import android.app.Application
 import org.koin.core.component.inject
-import org.mathieu.domain.models.character.Character
 import org.mathieu.domain.models.location.Location
-import org.mathieu.domain.repositories.CharacterRepository
 import org.mathieu.domain.repositories.LocationRepository
 import org.mathieu.ui.ViewModel
 
 
 
 sealed interface LocationsAction {
-    data class SelectedLocation(val location: Location):
+    data class SelectedLocation(val locationId: Int):
         LocationsAction
 }
 

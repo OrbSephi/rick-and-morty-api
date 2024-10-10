@@ -58,7 +58,7 @@ private fun MainContent() {
         }
 
         composable(
-            destination = org.mathieu.ui.Destination.LocationDetails()
+            destination = Destination.LocationDetails()
         ) { backStackEntry ->
             LocationDetailsScreen(
                 navController = navController,

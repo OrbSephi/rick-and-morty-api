@@ -185,7 +185,7 @@ fun locationCard(
             .background(Color.Gray)
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
-            .clickable { onAction(LocationsAction.SelectedLocation(location!!))}
+            .clickable { onAction(LocationsAction.SelectedLocation(location!!.id))}
         ,
         verticalAlignment = Alignment.CenterVertically
     ) {
