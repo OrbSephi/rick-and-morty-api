@@ -1,5 +1,8 @@
 package org.mathieu.characters.details
 
+import android.content.Context
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
@@ -15,7 +18,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -43,7 +45,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
-import org.mathieu.characters.list.CharactersAction
 import org.mathieu.domain.models.location.Location
 import org.mathieu.ui.composables.PreviewContent
 
@@ -70,7 +71,8 @@ fun CharacterDetailsScreen(
 @Composable
 private fun CharacterDetailsContent(
     state: UIState = UIState(),
-    onClickBack: () -> Unit = { }
+    onClickBack: () -> Unit = { },
+    onAction: (UIAction) -> Unit = { }
 ) = Scaffold(topBar = {
 
     Row(
@@ -163,13 +165,12 @@ private fun CharacterDetailsContent(
 
                     locationCard(
                         modifier = Modifier
-                            .padding(8.dp),
-                        location = state.location,
+                            .padding(8.dp)
+                            .clickable { onAction(LocationsAction.SelectedLocation(state.location!!)) },
+                        location = state.location
                     )
                 }
                 }
-
-
             }
         }
     }
@@ -185,16 +186,15 @@ fun locationCard(
             .background(Color.Gray)
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
-            .clickable { onAction(LocationsAction.SelectedLocation(location!!.id))}
         ,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Text(text = "Lieu : " + location?.name)
+        Text(text = "Lieu : ${location?.name}")
 
         Spacer(modifier = Modifier.width(12.dp))
 
-        Text(text = "type : " + location?.type)
+        Text(text = "type : ${location?.type}")
 
     }
 

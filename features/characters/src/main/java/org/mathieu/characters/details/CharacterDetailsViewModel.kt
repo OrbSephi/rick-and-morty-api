@@ -2,14 +2,17 @@ package org.mathieu.characters.details
 
 import android.app.Application
 import org.koin.core.component.inject
+import org.mathieu.characters.list.CharactersAction
+import org.mathieu.domain.models.character.Character
 import org.mathieu.domain.models.location.Location
 import org.mathieu.domain.repositories.LocationRepository
+import org.mathieu.ui.Destination
 import org.mathieu.ui.ViewModel
 
 
 
 sealed interface LocationsAction {
-    data class SelectedLocation(val locationId: Int):
+    data class SelectedLocation(val location: Location):
         LocationsAction
 }
 
@@ -43,6 +46,16 @@ class CharacterDetailsViewModel(application: Application) : ViewModel<CharacterD
             updateState { copy(isLoading = false) }
         }
     }
+
+    fun handleAction(action: LocationsAction) {
+        when(action) {
+            is LocationsAction.SelectedLocation -> selectedLocation(action.location)
+        }
+    }
+
+
+    private fun selectedLocation(location: Location) =
+        sendEvent(Destination.CharacterDetails(location.id.toString()))
 }
 
 
